@@ -10,6 +10,10 @@ def main():
     # Initialize pygame
     pygame.init()
 
+    # Set fps
+    clock = pygame.time.Clock()
+    dt = 0.0
+
     # Initialize window
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
@@ -28,6 +32,9 @@ def main():
 
         # Refresh screen
         pygame.display.flip()
+
+        dt = clock.tick(60) / 1000
+        print(dt)
 
 
 if __name__ == "__main__":
