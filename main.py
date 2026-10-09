@@ -40,9 +40,12 @@ def main():
         # Fill screen
         screen.fill("black")
 
-        # Draw player
+        # Update and draw groups
         updatable.update(dt)
 
+        # Pygame expects certain arguments for draw()
+        # that we aren't using, so it's better to iterate
+        # over the group normally
         for thing in drawable:
             thing.draw(screen)
 
