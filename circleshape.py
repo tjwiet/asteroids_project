@@ -14,12 +14,14 @@ class CircleShape(pygame.sprite.Sprite):
         self.velocity = pygame.Vector2(0, 0)
         self.radius = radius
 
+    # draw() and update() are parent class methods to be overidden
     def draw(self, screen: pygame.Surface) -> None:
         pass
 
     def update(self, dt: float) -> None:
         pass
 
+    # check if the distance between both midpoints is less than or equal to the sum of both radii
     def collides_with(self, other) -> bool:
         if self.position.distance_to(other.position) <= self.radius + other.radius:
             return True
