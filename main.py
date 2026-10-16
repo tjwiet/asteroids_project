@@ -2,6 +2,7 @@ import pygame
 import sys
 from constants import *
 from game import run_game
+from menu import display_menu
 
 def main():
     print(f"Starting Asteroids with pygame version: {pygame.version.ver}")
@@ -17,6 +18,10 @@ def main():
 
     # Initialize window
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    pygame.display.set_caption("Asteroids")
+
+    # Start with main menu
+    display_menu(clock, dt, screen)
 
     run_game(clock, dt, screen)
 
