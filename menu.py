@@ -28,7 +28,7 @@ def update_menu(choices_len, current_selection) -> tuple[int, bool]:
     new_selection = current_selection
     chosen = False
 
-    if keys[pygame.K_w] and current_selection > 1:
+    if keys[pygame.K_w] and current_selection > 0:
         new_selection -= 1
     if keys[pygame.K_s] and current_selection < choices_len:
         new_selection += 1
