@@ -2,7 +2,7 @@ import pygame
 import sys
 from constants import *
 from game import run_game
-from menu import display_menu
+from menu import run_menu
 
 def main():
     print(f"Starting Asteroids with pygame version: {pygame.version.ver}")
@@ -25,12 +25,24 @@ def main():
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     pygame.display.set_caption("Asteroids")
 
-    # Start with main menu
-    display_menu(clock, dt, screen, title_font, option_font)
+    playing = True
+    try:
+        while playing:
+            # Start with main menu
+            choice = run_menu(clock, dt, screen, title_font, option_font)
+            if choice == "PLAY":
+                print("Playing game")
+                # Start game
+                run_game(clock, dt, screen)
+            elif choice == "QUIT":
+                print("Quitting game")
+                playing = False
+            else:
+                print("Here for some reason")
+                raise Exception(f"Invalid choice: {choice}")
 
-
-    # Start game
-    run_game(clock, dt, screen)
+    except Exception as e:
+        print(e)
 
 
 if __name__ == "__main__":

@@ -15,7 +15,7 @@ def create_title(screen, font):
 
 
 def create_option(screen, font, choice, current_selection, dy):
-    if choice["text"] == current_selection:
+    if choice["num"] == current_selection:
         render = font.render(choice["text"], True, choice["color"])
     # If not, display in default white
     else:
@@ -23,8 +23,23 @@ def create_option(screen, font, choice, current_selection, dy):
     render_pos = render.get_rect(centerx = screen.get_width() / 2, centery = (screen.get_height() / 2) + dy)
     return render, render_pos
 
+def update_menu(choices_len, current_selection) -> tuple[int, bool]:
+    keys = pygame.key.get_pressed()
+    new_selection = current_selection
+    chosen = False
 
-def display_menu(clock, dt, screen, title_font, option_font):
+    if keys[pygame.K_w] and current_selection > 1:
+        new_selection -= 1
+    if keys[pygame.K_s] and current_selection < choices_len:
+        new_selection += 1
+    if keys[pygame.K_SPACE]:
+        chosen = True
+
+    return new_selection, chosen
+
+
+
+def run_menu(clock, dt, screen, title_font, option_font):
     # Initialize groups for background of asteroids
     updatable, drawable, asteroids = initialize_menu_groups()
 
@@ -36,24 +51,30 @@ def display_menu(clock, dt, screen, title_font, option_font):
 
     choices = [
         {
+            "num": 0,
             "text": "PLAY",
             "color": (80, 255, 80)
         },
         {
+            "num": 1,
             "text": "QUIT",
             "color": (255, 80, 80)
         }
     ]
 
-    current_selection = "PLAY"
-    running = True
-    while running:
+    current_selection = 0
+    undecided = True
+    while undecided:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
 
+        current_selection, chosen = update_menu(len(choices) - 1, current_selection)
+
+        # Fill background with black color
         screen.fill("black")
 
+        # Update asteroids
         updatable.update(dt)
         for thing in drawable:
             thing.draw(screen)
@@ -70,3 +91,5 @@ def display_menu(clock, dt, screen, title_font, option_font):
 
         pygame.display.flip()
         dt = clock.tick(60) / 1000
+        if chosen:
+            return choices[current_selection]["text"]

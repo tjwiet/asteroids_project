@@ -17,4 +17,4 @@ Controls:
  S: Move backward
 
 Next update:
-  Main Menu + Game Over screen
+  Displayed Score + Game Over screen

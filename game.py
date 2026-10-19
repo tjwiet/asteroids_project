@@ -53,7 +53,7 @@ def run_game(clock, dt, screen):
                 log_event("player_hit")
                 print("Game over!")
                 print(f"Score: {score}")
-                sys.exit()
+                return
 
         # Pygame expects certain arguments for draw()
         # that we aren't using, so it's better to iterate
