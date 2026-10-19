@@ -16,13 +16,20 @@ def main():
     clock = pygame.time.Clock()
     dt = 0.0
 
+    # Set text font
+    title_font = pygame.font.Font(None, TITLE_FONT_SIZE)
+    option_font = pygame.font.Font(None, OPTION_FONT_SIZE)
+
+
     # Initialize window
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     pygame.display.set_caption("Asteroids")
 
     # Start with main menu
-    display_menu(clock, dt, screen)
+    display_menu(clock, dt, screen, title_font, option_font)
 
+
+    # Start game
     run_game(clock, dt, screen)
 
 

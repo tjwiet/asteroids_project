@@ -18,6 +18,9 @@ def run_game(clock, dt, screen):
     # Initialize player
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
 
+    # Initialize score
+    score = 0
+
     # Run the game
     running = True
     while running:
@@ -43,11 +46,13 @@ def run_game(clock, dt, screen):
                     log_event("asteroid_shot")
                     asteroid.split()
                     shot.kill()
+                    score += 100
 
             # Check for collision with the player
             if asteroid.collides_with(player):
                 log_event("player_hit")
                 print("Game over!")
+                print(f"Score: {score}")
                 sys.exit()
 
         # Pygame expects certain arguments for draw()
@@ -60,3 +65,6 @@ def run_game(clock, dt, screen):
         pygame.display.flip()
 
         dt = clock.tick(60) / 1000
+
+        # add to score
+        score += int(dt * 100)
